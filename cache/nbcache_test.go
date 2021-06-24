@@ -1,5 +1,3 @@
-// https://github.com/konradreiche/concurrent-non-blocking-cache
-
 package main
 
 import (
@@ -23,6 +21,7 @@ var urls = []string{
 }
 
 func httpGetBody(url string) ([]byte, error) {
+	//fmt.Printf("Fetching %s\n", url)
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, err
@@ -67,7 +66,7 @@ func TestConcurrent(t *testing.T) {
 			if err != nil {
 				t.Error(err)
 			}
-			fmt.Printf("%s, 	%s, 	%d bytes\n", url, time.Since(start), len(value))
+			fmt.Printf("%s, %s, %d bytes\n", url, time.Since(start), len(value))
 			n.Done()
 		}(url)
 	}

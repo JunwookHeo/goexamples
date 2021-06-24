@@ -2,10 +2,6 @@
 
 package main
 
-import (
-	"fmt"
-)
-
 type Cache struct {
 	requests chan request
 }
@@ -14,6 +10,8 @@ type request struct {
 	key      string
 	response chan result
 }
+
+type Func func(key string) ([]byte, error)
 
 type entry struct {
 	res   result
@@ -24,8 +22,6 @@ type result struct {
 	value []byte
 	err   error
 }
-
-type Func func(key string) ([]byte, error)
 
 func NewCache(f Func) *Cache {
 	cache := &Cache{requests: make(chan request)}
@@ -61,16 +57,4 @@ func (e *entry) call(f Func, key string) {
 func (e *entry) deliver(response chan<- result) {
 	<-e.ready
 	response <- e.res
-}
-
-func func1(str string) func() string {
-	return func() string {
-		str2 := str + "_something"
-		return str2
-	}
-}
-func main() {
-	f := func1("test2")
-	str := f()
-	fmt.Println(str)
 }
