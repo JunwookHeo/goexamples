@@ -59,7 +59,7 @@ Please install 1.8.13 as Teensyduino only supports the version.
 
 * Software
 ```c
-* Created by Pi BOTS MakerHub
+/* Created by Pi BOTS MakerHub
  *
  * Email: pibotsmakerhub@gmail.com
  * 
